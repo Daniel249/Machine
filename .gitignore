@@ -1,3 +1,4 @@
+# git log --graph --full-history --all --pretty=format:"%h%x09%d%x20%s"
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
