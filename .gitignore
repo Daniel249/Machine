@@ -7,6 +7,11 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+*.exe
+*.json
+/bin/*
+/obj/*
+/.vscode/*
 
 # Windows Installer files
 *.cab
