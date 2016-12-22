@@ -8,7 +8,7 @@ class pro {
         // just test, get loop to machine
         while(noch) {
             mach.determine();
-            Console.WriteLine("esta es la newnewnew version");
+            Console.WriteLine("esta es la  version");
             //mach.memory().printReg(); //
         }
     }         
