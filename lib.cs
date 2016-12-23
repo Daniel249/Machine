@@ -169,7 +169,7 @@ class showMemory : Command {
     public showMemory() {
         name = "showmem";
         help = "shows Memory";
-        requires = true;
+        6 = true;
         comms = new Tuple[] {
             new Tuple("-a", "show all memory"),
             new Tuple("-l", "show last 4 memory spots")
@@ -209,5 +209,26 @@ class showMemory : Command {
             }
         }
         return true;
+    }
+}
+// end environment if mach.isAdmin
+class exit : Command {
+    public exit() {
+        name = "exit";
+        help = "Ends application";
+        requires = false;
+        comms = new Tuple[] {
+            new Tuple("-e", "Ends whole environment"),
+            new Tuple("-m", "end a specific machine")
+        };
+    }
+    public override bool metodo(machine mach, params string[] addComms) {
+        if(!base.metodo(mach, addComms)) {
+            return false;
+        }
+        if(!mach.isAdmin) {
+            return false;
+        }
+        
     }
 }

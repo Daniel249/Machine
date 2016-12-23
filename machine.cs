@@ -7,6 +7,7 @@ class machine {
     // memory and available Commands
     TupleList reg = new TupleList();
     CommList comms = new CommList();
+    public bool isAdmin = true;
 
     // get memory
     public TupleList memory() {
@@ -44,6 +45,10 @@ class machine {
         string str = Console.ReadLine();
         reg.addReg("User", str);
         return str;
+    }
+    // remember who what
+    public void listen(string who, string what) {
+        reg.addReg(who, what);
     }
     public int askNumber() {
         int num;
