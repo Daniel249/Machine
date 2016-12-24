@@ -3,7 +3,7 @@
 
 class pro {
     public static void Main(string[] args) {
-        Environment env = new Environment();
-        env.mein();
+        Background bground = new Background();
+        bground.mein();
     }         
 }

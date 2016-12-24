@@ -8,6 +8,7 @@ class machine {
     TupleList reg = new TupleList();
     CommList comms = new CommList();
     public bool isAdmin = true;
+    public Environtment envire;
 
     // get memory
     public TupleList memory() {

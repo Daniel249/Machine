@@ -1,6 +1,6 @@
 using System;
 
-class Environment {
+class Background {
     bool noch = true;
 
     // main
