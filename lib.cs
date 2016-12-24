@@ -226,9 +226,10 @@ class exit : Command {
         if(!base.metodo(mach, addComms)) {
             return false;
         }
-        if(!mach.isAdmin) {
-            return false;
-        }
+        // if(!mach.isAdmin) {
+        //     return false;
+        // }
+        
         
     }
 }

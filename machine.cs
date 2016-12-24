@@ -7,8 +7,8 @@ class machine {
     // memory and available Commands
     TupleList reg = new TupleList();
     CommList comms = new CommList();
-    public bool isAdmin = true;
-    public Environtment envire;
+    // public bool isAdmin = true;
+    public environment environment;
 
     // get memory
     public TupleList memory() {
@@ -35,6 +35,13 @@ class machine {
         respond("Hello World");  
         comms.addComm(new factorial());
         comms.addComm(new showMemory());
+    }
+    public machine(environment envire) {
+        Console.WriteLine();
+        respond("Hello World");  
+        comms.addComm(new factorial());
+        comms.addComm(new showMemory());
+        this.environment = envire;
     }
     // WriteLine and saves to memory
     public void respond(string str) {
@@ -66,6 +73,14 @@ class machine {
         string str = "";
         str = Console.ReadLine();
         return str;
+    }
+    public bool endEnvironment() {
+        if(this.environment == null) {
+            return false;
+        }
+        // message irrelevant
+        this.environment.exit(this, "");
+        return true;
     }
     //function
     //ded function, remove
