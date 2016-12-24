@@ -7,17 +7,15 @@ class environment {
     public void mein() {
         machine mach = new machine(this);
         // just test, get loop to machine
-        while(noch) {
+        while(this.noch) {
             mach.determine();
-            Console.WriteLine("esta es la version");
-            //mach.memory().printReg(); //
+            // Console.WriteLine("esta es la version");
+            // mach.memory().printReg(); //
         }
     }
     // exit program
     // TODO only admins remember
-    public void exit(machine mach, string msg) {
-        msg = "Terminating environment";
-        mach.listen("Environment", "Terminating...");
+    public void endEnvironment() {
         noch = false;
     }
 

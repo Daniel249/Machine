@@ -41,6 +41,7 @@ class machine {
         respond("Hello World");  
         comms.addComm(new factorial());
         comms.addComm(new showMemory());
+        comms.addComm(new exit());
         this.environment = envire;
     }
     // WriteLine and saves to memory
@@ -74,12 +75,13 @@ class machine {
         str = Console.ReadLine();
         return str;
     }
-    public bool endEnvironment() {
+    public bool endEnvironment(string envire, string msg) {
         if(this.environment == null) {
             return false;
         }
-        // message irrelevant
-        this.environment.exit(this, "");
+        // normally listen("Environment", "Ended")
+        this.listen(envire, msg);
+        this.environment.endEnvironment();
         return true;
     }
     //function

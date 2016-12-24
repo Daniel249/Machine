@@ -169,13 +169,14 @@ class showMemory : Command {
     public showMemory() {
         name = "showmem";
         help = "shows Memory";
-        6 = true;
+        requires = true;
         comms = new Tuple[] {
             new Tuple("-a", "show all memory"),
             new Tuple("-l", "show last 4 memory spots")
         };
     }
-    public override bool metodo(machine mach, params string[] addComms) {
+    public override bool metodo(machine mach, 
+    params string[] addComms) {
         if(!base.metodo(mach, addComms)) {
             return false;
         }
@@ -218,18 +219,37 @@ class exit : Command {
         help = "Ends application";
         requires = false;
         comms = new Tuple[] {
-            new Tuple("-e", "Ends whole environment"),
-            new Tuple("-m", "end a specific machine")
+            new Tuple("-m", "add comment"),
+            new Tuple("-a", "Ends all environments"),
         };
     }
-    public override bool metodo(machine mach, params string[] addComms) {
+    public override bool metodo(machine mach, 
+    params string[] addComms) {
         if(!base.metodo(mach, addComms)) {
             return false;
         }
-        // if(!mach.isAdmin) {
-        //     return false;
-        // }
-        
-        
+        string msg = "ended";
+        string enviro = "Environment";
+        if(addComms.Length == 0) {
+            return mach.endEnvironment(enviro, msg);
+        }
+        for(int i = 0; i < addComms.Length; i++) {
+            switch(addComms[i]) {
+                case "-m":
+                    msg = addComms[i+1];
+                    break;
+                case "-f":
+                    // force close
+                    break;
+                case "-a":
+                    // close all environments
+                    // TODO check superAdmin
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return mach.endEnvironment(enviro, msg);
     }
 }
