@@ -84,13 +84,4 @@ class machine {
         this.environment.endEnvironment();
         return true;
     }
-    //function
-    //ded function, remove
-    // public int fact(int x) {
-    //         int res = 1;
-    //         for(int i = 2; i < x; i++){
-    //             res = res * i;
-    //         }
-    //         return res;
-    // }
 }
