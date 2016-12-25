@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 // List<Tuple> used as memory on machine
 class TupleList {
