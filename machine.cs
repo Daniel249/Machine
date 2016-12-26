@@ -4,6 +4,7 @@ using System;
 
 // interacts with user
 class machine {
+    string name;
     // memory and available Commands
     TupleList reg = new TupleList();
     CommList comms = new CommList();
@@ -42,6 +43,7 @@ class machine {
         comms.addComm(new factorial());
         comms.addComm(new showMemory());
         comms.addComm(new exit());
+        comms.addComm(new rename());
         this.environment = envire;
     }
     // WriteLine and saves to memory
@@ -81,7 +83,10 @@ class machine {
         }
         // normally listen("Environment", "Ended")
         this.listen(envire, msg);
-        this.environment.endEnvironment();
+        this.environment.pause();
         return true;
+    }
+    public void rename(string str) {
+        name = str;
     }
 }

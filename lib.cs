@@ -39,7 +39,7 @@ class TupleList {
             return;
         }
         // Tuple tuple = reg[x];
-        Console.WriteLine("Memory location {0}", (x-1));
+        Console.WriteLine("Memory location {0}", (x));
         Console.WriteLine(reg[x].Item1 + "\t \t" + reg[x].Item2);
     }
     public void printReg(int st, int fin) {
@@ -49,7 +49,6 @@ class TupleList {
         if(st >= reg.Count) {
             Console.WriteLine("Start location does not exist");
             Console.WriteLine("Total memory used: {0}", reg.Count);
-            Console.WriteLine();
             return;
         }
         if(fin >= reg.Count) {
@@ -121,7 +120,7 @@ class Command {
     //virtual method, call with base.metodo()
     public virtual bool metodo(machine mach, params string[] added) {
         //if needs extra input or -h: getHelp
-        if(this.requires && added.Length == 0) {
+        if(this.requires && added.Length < 1) {
             getHelp();
             return false;
         }
@@ -213,6 +212,7 @@ class showMemory : Command {
     }
 }
 // end environment if mach.isAdmin
+
 class exit : Command {
     public exit() {
         name = "exit";
@@ -251,5 +251,43 @@ class exit : Command {
         }
 
         return mach.endEnvironment(enviro, msg);
+    }
+}
+// rename machine or environment name
+class rename : Command {
+    public rename() {
+        name = "rename";
+        help = "rename ongoing environment";
+        requires = true;
+        comms = new Tuple[] {
+         new Tuple("-m", "Change current machine name"),
+         new Tuple("-e", "Change current environment name")   
+        };
+    }
+    public override bool metodo(machine mach,
+    params string[] addComms) {
+        if(!base.metodo(mach, addComms)) {
+            return false;
+        }
+        for(int i = 0; i < addComms.Length; i++) {
+            if(addComms[i] == "-m") {
+                if(i+1 < addComms.Length) {
+                    mach.rename(addComms[i+1]);
+                    return true;
+                } else {
+                return false;
+                }
+            } 
+            if(addComms[i] == "-e") {
+                if(i+1 < addComms.Length) {
+                    mach.environment.rename(addComms[i+1]);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        }
+        return true;
     }
 }
