@@ -120,9 +120,10 @@ class Command {
     //virtual method, call with base.metodo()
     public virtual bool metodo(machine mach, params string[] added) {
         //if needs extra input or -h: getHelp
-        if(this.requires && added.Length < 1) {
-            getHelp();
-            return false;
+        if(this.requires) {
+            if( added.Length < 1) {
+                Console.WriteLine("Use -h for help on command");
+            }
         }
         foreach(string str in added) {
             if(str == "-h") {
@@ -150,7 +151,8 @@ class factorial : Command {
         help = "int as input, returns factorial";
         //comms = 
     }
-    public override bool metodo(machine mach, params string[] addComms) {
+    public override bool metodo(machine mach, 
+    params string[] addComms) {
         if(!base.metodo(mach, addComms)) {
             return false;
         }
@@ -288,6 +290,56 @@ class rename : Command {
             }
 
         }
-        return true;
+        return false;
     }
+}
+class name : Command {
+    public name() {
+        name = "name";
+        help = "get name from Machines or Environment";
+        requires = false;
+        comms = new Tuple[] {
+            // new Tuple("-c", "current Machine and Envi "),
+            new Tuple("-m", "get all Machines on current Environment"),
+            new Tuple("-e", "get all Environments")
+        };
+    }
+    public override bool metodo(machine mach, 
+    params string[] addComms) {
+        if(!base.metodo(mach, addComms)) {
+            return false;
+        }
+    if(addComms.Length == 0 || addComms[0] == "") {
+            Console.WriteLine("Current status:");
+            Console.WriteLine("Machine: \t \t" + mach.getName());
+            Console.WriteLine("Environment: \t \t" + mach.environment.getName());
+            Console.WriteLine();
+            return true;
+        }
+        for(int i = 0; i < addComms.Length; i++) {
+            if(addComms[i] == "-m") {
+                Console.WriteLine("Machines in {0}", 
+                mach.environment.getName());
+                foreach(machine mech in mach.environment.mechs) {
+                    Console.WriteLine(mech.getName());
+                }
+                Console.WriteLine();
+                return true;
+            } 
+            if(addComms[i] == "-e") {
+                Console.WriteLine("All Environments");
+                foreach(environment env in environment.envs) {
+                    string str = " ";
+                    if(mach.environment == env) {
+                        str = "*";
+                    }
+                    Console.WriteLine(str + env.getName());
+                }
+                Console.WriteLine();
+                return true;
+            }
+
+        }
+        return true;
+    } 
 }

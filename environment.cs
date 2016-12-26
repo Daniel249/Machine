@@ -5,9 +5,9 @@ using System.Collections.Generic;
 class environment {
     bool noch;
     string name;
-    List<machine> mechs;
-    int num = 0;
-    static List<environment> envs = new List<environment>();
+    public List<machine> mechs;
+    static int num = 0;
+    public static List<environment> envs = new List<environment>();
     static TupleList reg = new TupleList();
 
     // constructor
@@ -16,6 +16,7 @@ class environment {
         noch = true;
         name = "Environment" + num.ToString();
         num++;
+        spawn();
     }
 
     // main
@@ -46,5 +47,7 @@ class environment {
     void spawn() {
         envs.Add(this);
     }
-
+    public string getName() {
+        return name;
+    }
 }

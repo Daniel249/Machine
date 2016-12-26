@@ -28,24 +28,9 @@ class machine {
             currentComm.metodo(this, extraComms);
         } else {
             respond(tryComm + " is not a valid command");
+            Console.WriteLine();
         }
     } 
-    // constructor. adds Commands to CommList
-    public machine() {
-        Console.WriteLine();
-        respond("Hello World");  
-        comms.addComm(new factorial());
-        comms.addComm(new showMemory());
-    }
-    public machine(environment envire) {
-        Console.WriteLine();
-        respond("Hello World");  
-        comms.addComm(new factorial());
-        comms.addComm(new showMemory());
-        comms.addComm(new exit());
-        comms.addComm(new rename());
-        this.environment = envire;
-    }
     // WriteLine and saves to memory
     public void respond(string str) {
         reg.addReg("Machine", str);
@@ -88,5 +73,29 @@ class machine {
     }
     public void rename(string str) {
         name = str;
+    }
+    public string getName() {
+        return name;
+    }
+    // constructor
+    void _machine() {
+        Console.WriteLine();
+        respond("Hello World");  
+        comms.addComm(new factorial());
+        comms.addComm(new showMemory());
+        comms.addComm(new exit());
+        comms.addComm(new rename());
+        comms.addComm(new name());
+    }
+    // constructor. adds Commands to CommList
+    public machine() {
+        _machine();
+    }
+    // only constructor called, name = Machine always
+    public machine(environment envire) {
+        _machine();
+        name = "Machine";
+        this.environment = envire;
+        environment.mechs.Add(this);
     }
 }
