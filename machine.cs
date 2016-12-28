@@ -15,6 +15,9 @@ class machine {
     public TupleList memory() {
         return this.reg;
     }
+    public CommList commz() {
+        return this.comms;
+    }
 
     // methods
     // reads command and executes
@@ -85,7 +88,7 @@ class machine {
         comms.addComm(new showMemory());
         comms.addComm(new exit());
         comms.addComm(new rename());
-        comms.addComm(new name());
+        comms.addComm(new name());comms.addComm(new listc());
     }
     // constructor. adds Commands to CommList
     public machine() {

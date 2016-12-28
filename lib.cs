@@ -24,8 +24,8 @@ class TupleList {
         reg.Add(new Tuple(who, what));
     }
     // show from memory. exact location. from, to. all
-    public void printReg() {
-        Console.WriteLine("Show memory...");
+    public void printReg(string msg) {
+        Console.WriteLine(msg);
         foreach (Tuple tuple in reg) {
             Console.WriteLine(tuple.Item1 + "\t \t" + tuple.Item2);
         }
@@ -91,11 +91,12 @@ class CommList {
         comms = new List<Command>();
     }
     //check if string is in CommandList; return Command; return addComms
-    public bool isCommand(string str, out Command possibleComm, out string[] addComms) {
+    public bool isCommand(string str, out Command possibleComm,
+     out string[] addComms) {
         string[] tempSplit = str.Split(' '); //input to string[]
         string possibleStr = tempSplit.First(); //get Command
         addComms = tempSplit.Skip(1).ToArray(); //get extras
-        foreach(Command comm in comms){
+        foreach(Command comm in comms) {
             if(comm.name == possibleStr) {
                 //if match found
                 possibleComm = comm;
@@ -105,6 +106,13 @@ class CommList {
         //TODO return command to ask again
         possibleComm = null;
         return false;
+    }
+    public void listComms(machine mach) {
+        mach.respond("All commands available:");
+        foreach(Command com in comms) {
+            mach.respond(com.name);
+        }
+        mach.respond("For more info, -h");
     }
     public void addComm(Command comm) {
         comms.Add(comm);
@@ -141,6 +149,7 @@ class Command {
         for(int i = 0; i < comms.Length; i++) {
             Console.WriteLine(comms[i].Item1 + "\t"+"\t" + comms[i].Item2);
         }
+        Console.WriteLine();
     }
 
 }
@@ -163,6 +172,7 @@ class factorial : Command {
             res = res * i;
         }
         mach.respond("Answer: " + res.ToString());
+        Console.WriteLine();
         return true;
     }
 }
@@ -188,7 +198,7 @@ class showMemory : Command {
                 mach.memory().printReg(st, fn);
                 return true;
             } else if(possibleComm == "-a") {
-                mach.memory().printReg();
+                mach.memory().printReg("Show memory...");
                 return true;
             }
         }
@@ -310,30 +320,31 @@ class name : Command {
             return false;
         }
     if(addComms.Length == 0 || addComms[0] == "") {
-            Console.WriteLine("Current status:");
-            Console.WriteLine("Machine: \t \t" + mach.getName());
-            Console.WriteLine("Environment: \t \t" + mach.environment.getName());
+            mach.respond("Current status:");
+            mach.respond("Machine: \t \t" + mach.getName());
+            mach.respond("Environment: \t \t" + mach.environment.getName());
             Console.WriteLine();
             return true;
         }
         for(int i = 0; i < addComms.Length; i++) {
             if(addComms[i] == "-m") {
-                Console.WriteLine("Machines in {0}", 
-                mach.environment.getName());
+                string temp = mach.environment.getName();
+                mach.respond("Machines in" + temp); 
+                
                 foreach(machine mech in mach.environment.mechs) {
-                    Console.WriteLine(mech.getName());
+                    mach.respond(mech.getName());
                 }
                 Console.WriteLine();
                 return true;
             } 
             if(addComms[i] == "-e") {
-                Console.WriteLine("All Environments");
+                mach.respond("All Environments");
                 foreach(environment env in environment.envs) {
                     string str = " ";
                     if(mach.environment == env) {
                         str = "*";
                     }
-                    Console.WriteLine(str + env.getName());
+                    mach.respond(str + env.getName());
                 }
                 Console.WriteLine();
                 return true;
@@ -342,4 +353,21 @@ class name : Command {
         }
         return true;
     } 
+}
+class listc : Command {
+    public listc() {
+        name = "listc";
+        help = "Lists all commands in current machine";
+        requires = false;
+        comms = new Tuple[] {};
+    }
+    public override bool metodo(machine mach, 
+    params string[] addComms) {
+        if(!base.metodo(mach, addComms)) {
+            return false;
+        }
+        mach.commz().listComms(mach);
+        Console.WriteLine();
+        return true;
+    }
 }
