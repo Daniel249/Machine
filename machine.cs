@@ -88,7 +88,8 @@ class machine {
         comms.addComm(new showMemory());
         comms.addComm(new exit());
         comms.addComm(new rename());
-        comms.addComm(new name());comms.addComm(new listc());
+        comms.addComm(new name());
+        comms.addComm(new listc());
     }
     // constructor. adds Commands to CommList
     public machine() {
