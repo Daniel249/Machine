@@ -223,8 +223,7 @@ class showMemory : Command {
         return true;
     }
 }
-// end environment if mach.isAdmin
-
+// end environment if mach.environment != null
 class exit : Command {
     public exit() {
         name = "exit";
