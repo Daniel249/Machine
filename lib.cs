@@ -224,6 +224,7 @@ class showMemory : Command {
     }
 }
 // end environment if mach.environment != null
+//
 class exit : Command {
     public exit() {
         name = "exit";
@@ -367,6 +368,41 @@ class listc : Command {
         }
         mach.commz().listComms(mach);
         Console.WriteLine();
+        return true;
+    }
+}
+class neu : Command {
+    public neu() {
+        name = "new";
+        help = "Creates new instances of Machine or Envinronment";
+        requires = true;
+        comms = new Tuple[] {
+            new Tuple("-e", "create new Environment"),
+            new Tuple("-m", "Create new Machine")
+        };
+    }
+    public override bool metodo(machine mach, params string[] addComms) {
+        if(!base.metodo(mach, addComms)) {
+            return false;
+        }
+        environment env = null;
+        machine mech;
+        foreach(string str in addComms) {
+            switch(str) {
+                case "-e":
+                // new environment 
+                env = new environment();
+                break;
+                case "-m":
+                // if ex env mech on env, else on mach.env
+                if(env != null) {
+                    mech = new machine(env);
+                } else {
+                    mech = new machine(mach.environment); 
+                }
+                break;
+            }
+        }
         return true;
     }
 }
