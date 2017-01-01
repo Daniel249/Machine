@@ -39,7 +39,7 @@ class machine {
     public void respond(params string[] str) {
         string newStr = String.Join(" ", str);
         reg.addReg("Machine", newStr);
-        Console.WriteLine(str);
+        Console.WriteLine(newStr);
     }
     // ReadLine and saves to memory
     public string listen() {
@@ -101,6 +101,7 @@ class machine {
         comms.addComm(new name());
         comms.addComm(new listc());
         comms.addComm(new neu());
+        comms.addComm(new cd());
     }
     // constructor. adds Commands to CommList
     public machine() {
