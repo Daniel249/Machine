@@ -241,7 +241,7 @@ class exit : Command {
             return false;
         }
         string msg = "ended";
-        string enviro = "Environment";
+        environment enviro = mach.environment;
         if(addComms.Length == 0) {
             return mach.endEnvironment(enviro, msg);
         }
@@ -261,7 +261,7 @@ class exit : Command {
                     break;
             }
         }
-
+        // TODO add any environment for adminMachine
         return mach.endEnvironment(enviro, msg);
     }
 }
@@ -402,6 +402,39 @@ class neu : Command {
                 }
                 break;
             }
+        }
+        return true;
+    }
+}
+class cd : Command {
+    public cd() {
+        name = "cd";
+        help = "Changes current Machine or Environment";
+        requires = true;
+        comms = new Tuple[] {
+             new Tuple("-e", "Changes current Environment"),
+            new Tuple("-m", "Changes current Machine")
+        };
+    }
+    public override bool metodo(machine mach,
+    params string[] addComms) {
+        if(!base.metodo(mach, addComms)) {
+            return false;
+        }
+        if(addComms.Length > 2) {
+            return false;
+        }
+        string fstr = addComms[0];
+        string sstr = addComms[1];
+        switch(fstr) {
+            case "-e":
+            mach.environment.trycdEnv(sstr);
+            break;
+            case "-m":
+            //TODO
+            break;
+            default:
+            return false;
         }
         return true;
     }

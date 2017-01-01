@@ -8,8 +8,9 @@ class machine {
     // memory and available Commands
     TupleList reg = new TupleList();
     CommList comms = new CommList();
-    // public bool isAdmin = true;
     public environment environment;
+    static machine adminMachine = new machine();
+    public static environment nextEnvironment = new environment();
 
     // get memory
     public TupleList memory() {
@@ -35,8 +36,9 @@ class machine {
         }
     } 
     // WriteLine and saves to memory
-    public void respond(string str) {
-        reg.addReg("Machine", str);
+    public void respond(params string[] str) {
+        string newStr = String.Join(" ", str);
+        reg.addReg("Machine", newStr);
         Console.WriteLine(str);
     }
     // ReadLine and saves to memory
@@ -65,12 +67,20 @@ class machine {
         str = Console.ReadLine();
         return str;
     }
-    public bool endEnvironment(string envire, string msg) {
+    // static retu  rn adminMachine
+    static public machine getAdmin() {
+        return adminMachine;
+    }
+    // environment name and msg get saved on mach memory
+    public bool endEnvironment(environment envire, string msg) {
         if(this.environment == null) {
             return false;
         }
         // normally listen("Environment", "Ended")
-        this.listen(envire, msg);
+        string name = envire.getName();
+        listen(name, msg);
+        // cannot use respond cause reasons. so listen and WriteLine
+        Console.WriteLine(name + msg);
         this.environment.pause();
         return true;
     }
@@ -101,6 +111,6 @@ class machine {
         _machine();
         name = "Machine";
         this.environment = envire;
-        environment.mechs.Add(this);
+        this.environment.mechs.Add(this);
     }
 }
