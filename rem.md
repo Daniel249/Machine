@@ -9,3 +9,5 @@ program constantly calls mein from an environment
 
 exit command  
 if null break
+
+add cd -m
