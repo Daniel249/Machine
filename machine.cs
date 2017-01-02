@@ -8,8 +8,9 @@ class machine {
     // memory and available Commands
     TupleList reg = new TupleList();
     CommList comms = new CommList();
-    // public bool isAdmin = true;
     public environment environment;
+    static machine adminMachine = new machine();
+    public static environment nextEnvironment;
 
     // get memory
     public TupleList memory() {
@@ -35,9 +36,10 @@ class machine {
         }
     } 
     // WriteLine and saves to memory
-    public void respond(string str) {
-        reg.addReg("Machine", str);
-        Console.WriteLine(str);
+    public void respond(params string[] str) {
+        string newStr = String.Join(" ", str);
+        reg.addReg("Machine", newStr);
+        Console.WriteLine(newStr);
     }
     // ReadLine and saves to memory
     public string listen() {
@@ -65,12 +67,20 @@ class machine {
         str = Console.ReadLine();
         return str;
     }
-    public bool endEnvironment(string envire, string msg) {
+    // static retu  rn adminMachine
+    static public machine getAdmin() {
+        return adminMachine;
+    }
+    // environment name and msg get saved on mach memory
+    public bool endEnvironment(environment envire, string msg) {
         if(this.environment == null) {
             return false;
         }
         // normally listen("Environment", "Ended")
-        this.listen(envire, msg);
+        string name = envire.getName();
+        listen(name, msg);
+        // cannot use respond cause reasons. so listen and WriteLine
+        Console.WriteLine(name + " " + msg);
         this.environment.pause();
         return true;
     }
@@ -83,6 +93,7 @@ class machine {
     // constructor
     void _machine() {
         Console.WriteLine();
+        name = "Machine";
         respond("Hello World");  
         comms.addComm(new factorial());
         comms.addComm(new showMemory());
@@ -91,6 +102,7 @@ class machine {
         comms.addComm(new name());
         comms.addComm(new listc());
         comms.addComm(new neu());
+        comms.addComm(new cd());
     }
     // constructor. adds Commands to CommList
     public machine() {
@@ -99,8 +111,7 @@ class machine {
     // only constructor called, name = Machine always
     public machine(environment envire) {
         _machine();
-        name = "Machine";
         this.environment = envire;
-        environment.mechs.Add(this);
+        this.environment.mechs.Add(this);
     }
 }

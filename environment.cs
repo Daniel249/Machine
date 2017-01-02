@@ -16,18 +16,39 @@ class environment {
         noch = true;
         name = "Environment" + num.ToString();
         num++;
+        // machine.nextEnvironment = this;
+        this.mechs.Add(machine.getAdmin());
         spawn();
     }
 
-    // main
+    // main method for environments, at the end calls nextEnvironment.mein()
     public void mein() {
-        machine mach = new machine(this);
+        // machine mach = new machine(this); // moved to pro.Main()
         // just test, get loop to machine
         noch = true;
         while(noch) {
-            mach.determine();
-            // Console.WriteLine("esta es la version");
+            mechs[0].determine();
             // mach.memory().printReg(); 
+        }
+        environment nextEnv = machine.nextEnvironment;
+        if(nextEnv != null) {
+            nextEnv.mein();
+        }
+    }
+    // try change environment
+    public bool trycdEnv(string envName) {
+        environment checkEnv = null;
+        foreach(environment env in envs) {
+            if(env.getName() == envName) {
+                checkEnv = env;
+                break;
+            }
+        }
+        if(checkEnv != null) {
+            this.pause();
+            return true;
+        } else {
+            return false;
         }
     }
     // exit program
