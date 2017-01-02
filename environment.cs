@@ -16,7 +16,7 @@ class environment {
         noch = true;
         name = "Environment" + num.ToString();
         num++;
-        machine.nextEnvironment = this;
+        // machine.nextEnvironment = this;
         this.mechs.Add(machine.getAdmin());
         spawn();
     }
@@ -28,10 +28,12 @@ class environment {
         noch = true;
         while(noch) {
             mechs[0].determine();
-            // Console.WriteLine("esta es la version");
             // mach.memory().printReg(); 
         }
-        machine.nextEnvironment.mein();
+        environment nextEnv = machine.nextEnvironment;
+        if(nextEnv != null) {
+            nextEnv.mein();
+        }
     }
     // try change environment
     public bool trycdEnv(string envName) {

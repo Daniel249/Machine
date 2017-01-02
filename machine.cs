@@ -10,7 +10,7 @@ class machine {
     CommList comms = new CommList();
     public environment environment;
     static machine adminMachine = new machine();
-    public static environment nextEnvironment = new environment();
+    public static environment nextEnvironment;
 
     // get memory
     public TupleList memory() {
@@ -93,6 +93,7 @@ class machine {
     // constructor
     void _machine() {
         Console.WriteLine();
+        name = "Machine";
         respond("Hello World");  
         comms.addComm(new factorial());
         comms.addComm(new showMemory());
@@ -110,7 +111,6 @@ class machine {
     // only constructor called, name = Machine always
     public machine(environment envire) {
         _machine();
-        name = "Machine";
         this.environment = envire;
         this.environment.mechs.Add(this);
     }

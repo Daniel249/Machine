@@ -233,6 +233,7 @@ class exit : Command {
         comms = new Tuple[] {
             new Tuple("-m", "add comment"),
             new Tuple("-a", "Ends all environments"),
+            new Tuple("-f", "Force close Environment")
         };
     }
     public override bool metodo(machine mach, 
@@ -248,17 +249,19 @@ class exit : Command {
         for(int i = 0; i < addComms.Length; i++) {
             switch(addComms[i]) {
                 case "-m":
+                if(i+1 < addComms.Length) {
                     msg = addComms[i+1];
-                    break;
+                }
+                break;
                 case "-f":
                     // force close
-                    break;
+                break;
                 case "-a":
                     // close all environments
                     // TODO check superAdmin
-                    break;
+                break;
                 default:
-                    break;
+                break;
             }
         }
         // TODO add any environment for adminMachine
