@@ -118,6 +118,8 @@ class CommList {
         comms.Add(comm);
     }
 }
+// TODO add method: if requires check addComms, 
+// if no coincidence call getHelp(). apply to all commands
 class Command {
     public string name;
     protected string help;
@@ -129,8 +131,9 @@ class Command {
     public virtual bool metodo(machine mach, params string[] added) {
         //if needs extra input or -h: getHelp
         if(this.requires) {
-            if( added.Length < 1) {
+            if(checkArray(added)) {
                 Console.WriteLine("Use -h for help on command");
+                Console.WriteLine();
             }
         }
         foreach(string str in added) {
@@ -150,6 +153,15 @@ class Command {
             Console.WriteLine(comms[i].Item1 + "\t"+"\t" + comms[i].Item2);
         }
         Console.WriteLine();
+    }
+    bool checkArray(string[] arr) {
+        if(arr.Length < 1) {
+            return true;
+        }
+        if(arr[0] == "" || arr[0] == " ") {
+            return true;
+        }
+        return false;
     }
 
 }

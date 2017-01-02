@@ -177,7 +177,8 @@ class name : Command {
             return true;
         }
         for(int i = 0; i < addComms.Length; i++) {
-            if(addComms[i] == "-m") {
+            switch(addComms[i]) {
+                case "-m":
                 string temp = mach.environment.getName();
                 mach.respond("Machines in" + temp); 
                 
@@ -186,8 +187,9 @@ class name : Command {
                 }
                 Console.WriteLine();
                 return true;
-            } 
-            if(addComms[i] == "-e") {
+                // break;
+
+                case "-e":
                 mach.respond("All Environments");
                 foreach(environment env in environment.envs) {
                     string str = " ";
@@ -198,8 +200,8 @@ class name : Command {
                 }
                 Console.WriteLine();
                 return true;
+                // break;
             }
-
         }
         return true;
     } 

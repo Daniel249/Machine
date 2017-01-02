@@ -80,7 +80,7 @@ class machine {
         string name = envire.getName();
         listen(name, msg);
         // cannot use respond cause reasons. so listen and WriteLine
-        Console.WriteLine(name + msg);
+        Console.WriteLine(name + " " + msg);
         this.environment.pause();
         return true;
     }
