@@ -31,7 +31,7 @@ class environment {
         noch = true;
         while(noch) {
             mechs[machNum].determine();
-            Console.WriteLine(machine.nextEnvironment.getName());
+            // Console.WriteLine(machine.nextEnvironment.getName());
         }
         environment nextEnv = machine.nextEnvironment;
         // nextEnvironment goes back to this so that exit returns hier
