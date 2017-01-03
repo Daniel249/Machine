@@ -9,8 +9,9 @@ class machine {
     TupleList reg = new TupleList();
     CommList comms = new CommList();
     public environment environment;
-    static machine adminMachine = new machine();
+    static machine adminMachine = new machine("adminMachine");
     public static environment nextEnvironment;
+    public static environment pastEnvironment;
 
     // get memory
     public TupleList memory() {
@@ -78,9 +79,19 @@ class machine {
         }
         // normally listen("Environment", "Ended")
         string name = envire.getName();
-        listen(name, msg);
         // cannot use respond cause reasons. so listen and WriteLine
+        listen(name, msg);
         Console.WriteLine(name + " " + msg);
+        // remove from envs List
+        this.environment.remove();
+        // go back to last environment
+        // as last is unknown set to envs[0] if not null
+        nextEnvironment = pastEnvironment;
+        if(environment.envs.Count > 0) {
+            pastEnvironment = environment.envs[0];
+        } else {
+            pastEnvironment = null;
+        }
         this.environment.pause();
         return true;
     }
@@ -93,7 +104,6 @@ class machine {
     // constructor
     void _machine() {
         Console.WriteLine();
-        name = "Machine";
         respond("Hello World");  
         comms.addComm(new factorial());
         comms.addComm(new showMemory());
@@ -105,12 +115,14 @@ class machine {
         comms.addComm(new cd());
     }
     // constructor. adds Commands to CommList
-    public machine() {
+    public machine(string str) {
+        name = str;
         _machine();
     }
     // only constructor called, name = Machine always
     public machine(environment envire) {
         _machine();
+        name = "Machine";
         this.environment = envire;
         this.environment.mechs.Add(this);
     }
