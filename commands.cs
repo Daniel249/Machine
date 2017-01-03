@@ -274,16 +274,27 @@ class cd : Command {
             return false;
         }
         if(addComms.Length > 2) {
+            mach.respond("Not valid input");
+            getHelp();
             return false;
         }
         string fstr = addComms[0];
-        string sstr = addComms[1];
+        string sstr = "";
+        // Console.WriteLine(fstr);
+        if(addComms.Length > 1){
+            sstr = addComms[1];
+        }
         switch(fstr) {
             case "-e":
             mach.environment.trycdEnv(sstr);
             break;
             case "-m":
-            //TODO
+            int num;
+            if(int.TryParse(sstr, out num)) {
+                mach.environment.cdMachine(num);
+            } else {
+                mach.environment.cdMachine(sstr);
+            }
             break;
             default:
             return false;
