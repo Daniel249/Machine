@@ -245,6 +245,12 @@ class neu : Command {
                 case "-e":
                 // new environment 
                 env = new environment();
+                // this fixed it
+                // automatically cd to past env after exit
+                // so set after first new -e needed
+                if(machine.pastEnvironment == null) {
+                    machine.pastEnvironment = env;
+                }
                 break;
                 case "-m":
                 // if ex env mech on env, else on mach.env
