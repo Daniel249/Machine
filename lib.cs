@@ -97,8 +97,8 @@ class CommList {
         string possibleStr = tempSplit.First(); //get Command
         addComms = tempSplit.Skip(1).ToArray(); //get extras
         foreach(Command comm in comms) {
+            //if match with command found run it
             if(comm.name == possibleStr) {
-                //if match found
                 possibleComm = comm;
                 return true;
             }
@@ -107,6 +107,7 @@ class CommList {
         possibleComm = null;
         return false;
     }
+    // for listc
     public void listComms(machine mach) {
         mach.respond("All commands available:");
         foreach(Command com in comms) {
@@ -114,6 +115,7 @@ class CommList {
         }
         mach.respond("For more info, -h");
     }
+    // used in machine constructor
     public void addComm(Command comm) {
         comms.Add(comm);
     }
@@ -128,6 +130,7 @@ class Command {
     protected bool requires = false;
     
     //virtual method, call with base.metodo()
+    // base.metodo checks if help is needed before running local metodo
     public virtual bool metodo(machine mach, params string[] added) {
         //if needs extra input or -h: getHelp
         if(this.requires) {
@@ -144,6 +147,7 @@ class Command {
         }
         return true;
     }
+    // print help
     protected void getHelp() {
         Console.WriteLine(this.help);
         getComms();
@@ -154,6 +158,7 @@ class Command {
         }
         Console.WriteLine();
     }
+    //check if array normally addComms is empty
     bool checkArray(string[] arr) {
         if(arr.Length < 1) {
             return true;
@@ -163,5 +168,4 @@ class Command {
         }
         return false;
     }
-
 }
