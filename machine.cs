@@ -86,8 +86,16 @@ class machine {
         this.environment.remove();
         // go back to last environment
         // as last is unknown set to envs[0] if not null
+        // leave no chance of environment surviving
         if(pastEnvironment != null && pastEnvironment != this.environment) {
             nextEnvironment = pastEnvironment;
+        } else {
+            foreach(environment env in environment.envs) {
+                if(env != this.environment) {
+                    nextEnvironment = env;
+                    break;
+                }
+            }
         }
         // tratando de llenar todas las opciones, posiblemente innecesario
         if(environment.envs.Count > 0) {
