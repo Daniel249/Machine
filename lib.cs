@@ -158,7 +158,7 @@ class Command {
         }
         Console.WriteLine();
     }
-    //check if array normally addComms is empty
+    // check if array (normally addComms) is empty
     bool checkArray(string[] arr) {
         if(arr.Length < 1) {
             return true;

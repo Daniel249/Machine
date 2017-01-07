@@ -39,12 +39,13 @@ class showMemory : Command {
             return false;
         }
         foreach(string possibleComm in addComms) {
-            if(possibleComm == "-l") {
+            switch(possibleComm) {
+            case "-l":
                 int fn = mach.memory().getLength() - 1;
                 int st = fn - 3;
                 mach.memory().printReg(st, fn);
                 return true;
-            } else if(possibleComm == "-a") {
+            case "-a":
                 mach.memory().printReg("Show memory...");
                 return true;
             }
@@ -132,15 +133,15 @@ class rename : Command {
             return false;
         }
         for(int i = 0; i < addComms.Length; i++) {
-            if(addComms[i] == "-m") {
+            switch(addComms[i]) {
+            case "-m":
                 if(i+1 < addComms.Length) {
                     mach.rename(addComms[i+1]);
                     return true;
                 } else {
                 return false;
                 }
-            } 
-            if(addComms[i] == "-e") {
+            case "-e":
                 if(i+1 < addComms.Length) {
                     mach.environment.rename(addComms[i+1]);
                     return true;
@@ -148,7 +149,7 @@ class rename : Command {
                     return false;
                 }
             }
-
+            
         }
         return false;
     }

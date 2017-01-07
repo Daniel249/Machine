@@ -60,6 +60,7 @@ class environment {
     // try change environment
     public bool trycdEnv(string envName) {
         environment checkEnv = null;
+        // check for coincidence, if found 
         foreach(environment env in envs) {
             if(env.getName() == envName) {
                 checkEnv = env;
