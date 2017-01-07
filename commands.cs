@@ -247,7 +247,7 @@ class neu : Command {
                 env = new environment();
                 break;
                 case "-m":
-                // if ex env mech on env, else on mach.env
+                // if already -e, mech on env, else on mach.env
                 if(env != null) {
                     mech = new machine(env);
                 } else {
