@@ -137,6 +137,7 @@ class Command {
             if(checkArray(added)) {
                 Console.WriteLine("Use -h for help on command");
                 Console.WriteLine();
+                return false;
             }
         }
         foreach(string str in added) {
