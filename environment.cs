@@ -33,10 +33,16 @@ class environment {
             mechs[machNum].determine();
             // Console.WriteLine(machine.nextEnvironment.getName());
         }
-        environment nextEnv = machine.nextEnvironment;
         // nextEnvironment goes back to this so that exit returns hier
         if(envs.Count == 0) {
             return null;
+        }
+        // return next or past
+        environment nextEnv;
+        if(machine.nextEnvironment != null) {
+            nextEnv = machine.nextEnvironment;
+        } else {
+            nextEnv = machine.pastEnvironment;
         }
         return nextEnv;
     }

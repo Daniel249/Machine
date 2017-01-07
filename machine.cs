@@ -89,6 +89,7 @@ class machine {
         if(pastEnvironment != null && pastEnvironment != this.environment) {
             nextEnvironment = pastEnvironment;
         }
+        // tratando de llenar todas las opciones, posiblemente innecesario
         if(environment.envs.Count > 0) {
             pastEnvironment = environment.envs[0];
         } else {
