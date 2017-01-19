@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 // declared :Commands
 class factorial : Command {
@@ -103,6 +104,8 @@ class exit : Command {
                 break;
                 case "-f":
                     // force close
+                    environment.envs = new List<environment>();
+                    return true;
                 break;
                 case "-a":
                     // close all environments
