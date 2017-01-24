@@ -167,6 +167,14 @@ class Command {
         if(arr[0] == "" || arr[0] == " ") {
             return true;
         }
-        return false;
+        foreach(string str in arr) {
+            foreach(Tuple tup in this.comms) {
+                string fstr = tup.Item1;
+                if(str == fstr) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
