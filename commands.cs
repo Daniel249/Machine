@@ -245,10 +245,13 @@ class neu : Command {
         machine mech;
         for(int i = 0; i < addComms.Length; i++) {
             string str = addComms[i];
-            // sstr possible name for env/mach
+            // sstr possible name for env/mach. must !be empty
             string sstr = null;
             if(i+1 < addComms.Length) {
                 sstr = addComms[i+1];
+                if(sstr == "" || sstr == " "){
+                    sstr = null;
+                }
             }
             switch(str) {
                 case "-e":
