@@ -243,11 +243,20 @@ class neu : Command {
         }
         environment env = null;
         machine mech;
-        foreach(string str in addComms) {
+        for(int i = 0; i < addComms.Length; i++) {
+            string str = addComms[i];
+            // sstr possible name for env/mach
+            string sstr = null;
+            if(i+1 < addComms.Length) {
+                sstr = addComms[i+1];
+            }
             switch(str) {
                 case "-e":
-                // new environment 
+                // new environment. rename if valid sstr
                 env = new environment();
+                if(sstr != null) {
+                    env.rename(sstr);
+                }
                 // this fixed it
                 // automatically cd to past env after exit
                 // so set after first new -e needed
@@ -261,6 +270,10 @@ class neu : Command {
                     mech = new machine(env);
                 } else {
                     mech = new machine(mach.environment); 
+                }
+                // rename if valid
+                if(sstr != null) {
+                    mech.rename(sstr);
                 }
                 break;
             }
