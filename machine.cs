@@ -115,7 +115,8 @@ class machine {
     // constructor
     void _machine() {
         Console.WriteLine();
-        respond("Hello World");  
+        respond("Hello World");
+        respond("hint: use listc");
         comms.addComm(new factorial());
         comms.addComm(new showMemory());
         comms.addComm(new exit());
