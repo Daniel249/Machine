@@ -52,6 +52,7 @@ class machine {
     public void listen(string who, string what) {
         reg.addReg(who, what);
     }
+    // asks for int
     public int askNumber() {
         int num;
         while (true) {
@@ -68,7 +69,7 @@ class machine {
         str = Console.ReadLine();
         return str;
     }
-    // static retu  rn adminMachine
+    // static retu rn adminMachine
     static public machine getAdmin() {
         return adminMachine;
     }
