@@ -16,7 +16,7 @@ class factorial : Command {
         mach.respond("Escribe un numero natural");
         int num = mach.askNumber();
         int res = 1;
-        for(int i = 2; i < num; i++){
+        for(int i = 2; i <= num; i++){
             res = res * i;
         }
         mach.respond("Answer: " + res.ToString());
@@ -106,7 +106,7 @@ class exit : Command {
                     // force close
                     environment.envs = new List<environment>();
                     return true;
-                break;
+                // break;
                 case "-a":
                     // close all environments
                     // TODO check superAdmin
@@ -249,7 +249,7 @@ class neu : Command {
             string sstr = null;
             if(i+1 < addComms.Length) {
                 sstr = addComms[i+1];
-                if(sstr == "" || sstr == " "){
+                if(sstr == "" || sstr == " " || sstr == "-m"){
                     sstr = null;
                 }
             }
