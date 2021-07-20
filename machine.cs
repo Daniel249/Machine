@@ -4,13 +4,18 @@ using System;
 
 // interacts with user
 class machine {
+    // name of machine
     string name;
-    // memory and available Commands
+    // conversation memory and available Commands
     TupleList reg = new TupleList();
     CommList comms = new CommList();
+    // reference to environment
     public environment environment;
+    // reference to first machine
     static machine adminMachine = new machine("adminMachine");
+    // next environment to jump to always
     public static environment nextEnvironment;
+    // past environment in case of current not available anymore
     public static environment pastEnvironment;
 
     // get memory
